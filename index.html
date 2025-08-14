@@ -1,34 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MyShop – E-commerce</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <header>
-    <h1 id="logo">🛒 MyShop</h1>
-    <input type="text" id="search" placeholder="Search for products...">
-    <div id="cart">🛍️ Cart (<span id="cart-count">0</span>)</div>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BazaarBolt — Shop smart, shop fast ⚡</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-bar">
+        <div class="brand" id="logo" aria-label="BazaarBolt home">
+          <span class="bolt">⚡</span>
+          <span class="name">Bazaar<span class="accent">Bolt</span></span>
+        </div>
 
-  <main id="main-content">
-    <!-- Product sections will appear here -->
-  </main>
+        <div class="search-wrap">
+          <input type="text" id="search" placeholder="Search products, brands & categories" aria-label="Search products" />
+          <button class="clear-search" id="clear-search" aria-label="Clear search">✕</button>
+        </div>
 
-  <!-- 🛒 Cart Modal -->
-  <div id="cart-modal" class="modal">
-    <div class="modal-content">
-      <span id="close-cart" class="close">&times;</span>
-      <h2>Your Cart</h2>
-      <div id="cart-items"></div>
-      <div class="cart-actions">
-        <button id="buy-now">Proceed to Buy</button>
+        <nav class="header-actions">
+          <button class="action-btn" id="open-filters" aria-label="Open filters">🔎 Filters</button>
+          <button class="action-btn cart-btn" id="cart" aria-label="Open cart">
+            🛍️ <span class="cart-text">Cart</span>
+            <span class="cart-count" id="cart-count">0</span>
+          </button>
+        </nav>
+      </div>
+
+      <div class="subnav container" id="category-chips">
+        <!-- dynamic category chips -->
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <h1>Deals that feel electric ⚡</h1>
+          <p>Fresh picks across tech, fashion, home & more — delivered fast, priced right.</p>
+          <a href="#main-content" class="btn btn-primary">Shop new arrivals</a>
+        </div>
+        <picture>
+          <source srcset="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=1200" media="(min-width: 768px)">
+          <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=800" alt="Shopping bags and boxes" />
+        </picture>
+      </div>
+    </section>
+
+    <main class="container" id="main">
+      <aside class="filters" id="filters-panel" aria-label="Filters">
+        <div class="filters-head">
+          <h2>Filters</h2>
+          <button class="icon-btn" id="close-filters" aria-label="Close filters">✕</button>
+        </div>
+        <div class="filter-block">
+          <label class="block-label" for="sort-select">Sort by</label>
+          <select id="sort-select">
+            <option value="relevance">Relevance</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="rating-desc">Top Rated</option>
+          </select>
+        </div>
+        <div class="filter-block">
+          <label class="block-label" for="price-range">Max price</label>
+          <div class="range-row">
+            <input type="range" id="price-range" min="0" max="50000" step="500" value="50000" />
+            <span id="price-range-label">₹50,000</span>
+          </div>
+        </div>
+        <div class="filter-block">
+          <label class="block-label">Ratings</label>
+          <div class="stars-filter" id="stars-filter">
+            <!-- stars buttons 4+, 3+, etc. -->
+          </div>
+        </div>
+        <button class="btn btn-secondary w-full" id="reset-filters">Reset filters</button>
+      </aside>
+
+      <section class="content" id="main-content">
+        <!-- Skeletons while loading -->
+        <div class="skeleton-grid" id="skeleton-grid"></div>
+        <!-- Product sections will render here -->
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <div class="brand small">
+            <span class="bolt">⚡</span>
+            <span class="name">Bazaar<span class="accent">Bolt</span></span>
+          </div>
+          <p class="muted">Shop smart, shop fast. Made for demos & learning.</p>
+        </div>
+        <ul>
+          <li class="muted">Help & Support</li>
+          <li><a href="#">Payments</a></li>
+          <li><a href="#">Shipping</a></li>
+          <li><a href="#">Returns</a></li>
+        </ul>
+        <ul>
+          <li class="muted">Company</li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div class="container tiny muted">© <span id="year"></span> BazaarBolt</div>
+    </footer>
+
+    <!-- Product Quick View Modal -->
+    <div id="product-modal" class="modal" aria-hidden="true" role="dialog" aria-label="Product details">
+      <div class="modal-content product-modal">
+        <button class="icon-btn modal-close" id="close-product">✕</button>
+        <div class="pm-body" id="pm-body"><!-- dynamic --></div>
       </div>
     </div>
-  </div>
 
-  <script src="app.js"></script>
-</body>
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="modal" aria-hidden="true" role="dialog" aria-label="Shopping cart">
+      <div class="modal-content cart-modal">
+        <button class="icon-btn modal-close" id="close-cart">✕</button>
+        <h2>Your cart</h2>
+        <div id="cart-items" class="cart-items"></div>
+        <div class="cart-summary" id="cart-summary"></div>
+        <div class="cart-actions">
+          <button class="btn btn-secondary" id="clear-cart">Clear</button>
+          <button class="btn btn-primary" id="buy-now">Checkout</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toasts -->
+    <div id="toast" class="toast" aria-live="polite" aria-atomic="true"></div>
+
+    <script src="app.js"></script>
+  </body>
 </html>
